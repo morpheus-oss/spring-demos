@@ -1,6 +1,6 @@
 package com.epam.demo.grocery.grocery.models;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Product")
