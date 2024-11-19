@@ -1,0 +1,7 @@
+FROM openjdk:17-jdk-slim
+
+WORKDIR /app
+COPY target/shorten-url-0.0.1-SNAPSHOT.jar shorten-url.jar
+EXPOSE 8080
+
+CMD ["java", "-jar", "shorten-url.jar"]

@@ -1,0 +1,23 @@
+version: '3.3'
+services:
+  app:
+    image: url-shortener-app
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+    networks:
+      - url-net
+
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    networks:
+      - url-net
+
+networks:
+  url-net:
+    driver: bridge
