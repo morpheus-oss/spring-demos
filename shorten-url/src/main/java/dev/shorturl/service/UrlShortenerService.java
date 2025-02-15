@@ -1,31 +1,41 @@
 package dev.shorturl.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class UrlShortenerService {
 
+    Logger logger = LoggerFactory.getLogger(UrlShortenerService.class);
+
     @Autowired
     private StringRedisTemplate redisTemplate;
-//    private final ConcurrentHashMap<String, String> urlMap = new ConcurrentHashMap<>();
     private final AtomicLong counter = new AtomicLong();
 
-    public String shortenURL(String actualURL)  {
+    private final String PREFIX = "shorturl:";
+    private final String PREFIX_REV = "shorturl-rev:";
+
+    public String getShortCode(String actualURL)  {
         long id = counter.getAndIncrement();
-        String shortURL = encode(id);
-        redisTemplate.opsForValue().set(shortURL, actualURL);
-//        urlMap.put(shortURL, actualURL);
-        return shortURL;
+        String shortCode = encode(id);
+        logger.info("Short code {0} generated for URL {1}.", shortCode, actualURL);
+
+        redisTemplate.opsForValue().set(PREFIX + shortCode, actualURL);
+        redisTemplate.opsForValue().set(PREFIX_REV + actualURL, shortCode);
+        return shortCode;
     }
 
     public String getActualURL(String shortURL) {
-        return redisTemplate.opsForValue().get(shortURL);
-//        return urlMap.get(shortURL);
+        return redisTemplate.opsForValue().get(PREFIX + shortURL);
+    }
+
+    public String lookupShortCode(String actualURL) {
+        return redisTemplate.opsForValue().get(PREFIX_REV + actualURL);
     }
 
     private static final String BASE62_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
