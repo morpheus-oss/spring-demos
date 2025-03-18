@@ -1,1 +1,38 @@
+# Use postgres/example user/password credentials
+version: '3.8'
+
 services:
+  app:
+    container_name: guestbook-app
+    ports:
+      - "9090:9090"
+    build:
+      context: ./
+      dockerfile: guestbook.dockerfile
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16.0
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: guestbook
+      POSTGRES_USER: gb-user
+      POSTGRES_PASSWORD: gb-pass
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./resources/guestbook-ddl.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - backend
+    restart: always
+    shm_size: 256mb
+
+volumes:
+  db-data:
+    external: true
+
+networks:
+  backend:
