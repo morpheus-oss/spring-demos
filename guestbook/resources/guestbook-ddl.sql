@@ -1,52 +1,46 @@
-
-CREATE TABLE IF NOT EXISTS "state"  {
-    "id" serial NOT NULL UNIQUE,
-    "name" varchar(80) NOT NULL,
-    PRIMARY KEY ("id")
-}
-
-CREATE TABLE IF NOT EXISTS "city" (
-	"id" serial NOT NULL UNIQUE,
-	"name" varchar(80) NOT NULL,
-	"state_id" bigint NOT NULL,
-	PRIMARY KEY ("id")
+CREATE TABLE IF NOT EXISTS state  (
+    id serial NOT NULL PRIMARY KEY,
+    name  varchar(80) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS "locality" (
-	"id" serial NOT NULL UNIQUE,
-	"name" varchar(255) NOT NULL,
-	"city_id" bigint NOT NULL,
-	"pincode" VARCHAR(10) NOT NULL,
-	PRIMARY KEY ("id")
+CREATE TABLE IF NOT EXISTS city (
+	id serial NOT NULL PRIMARY KEY,
+	name varchar(80) NOT NULL,
+	state_id bigint NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS "hotel" (
-	"id" serial NOT NULL UNIQUE,
-	"name" varchar(200) NOT NULL,
-	"street" varchar(250) NOT NULL,
-	"locality_id" bigint NOT NULL,
-	"added_date" timestamp NOT NULL,
-	"last_modified_date" timestamp NOT NULL,
-	PRIMARY KEY ("id")
+CREATE TABLE IF NOT EXISTS locality (
+	id serial NOT NULL PRIMARY KEY,
+	name varchar(255) NOT NULL,
+	city_id bigint NOT NULL,
+	pincode VARCHAR(10) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS "rating" (
-	"id" serial NOT NULL UNIQUE,
-	"hotel_id" bigint NOT NULL,
-	"guest_name" varchar(255) NOT NULL,
-	"guest_email" varchar(255) NOT NULL,
-	"guest_phone" varchar(15) NOT NULL,
-	"stars" int NOT NULL,
-	"description" varchar(250) NOT NULL,
-	"added_date" timestamp NOT NULL,
-	"last_modified_date" timestamp NOT NULL,
-	PRIMARY KEY ("id")
+CREATE TABLE IF NOT EXISTS hotel (
+	id serial NOT NULL PRIMARY KEY,
+	name varchar(200) NOT NULL,
+	street varchar(250) NOT NULL,
+	locality_id bigint NOT NULL,
+	added_date timestamp NOT NULL,
+	last_modified_date timestamp NOT NULL
 );
 
-ALTER TABLE "city" ADD CONSTRAINT "fk_city_state" FOREIGN KEY ("state_id") REFERENCES "state"("id");
-ALTER TABLE "locality" ADD CONSTRAINT "fk_locality_city" FOREIGN KEY ("city_id") REFERENCES "city"("id");
-ALTER TABLE "hotel" ADD CONSTRAINT "fk_hotel_locality" FOREIGN KEY ("locality_id") REFERENCES "locality"("id");
-ALTER TABLE "rating" ADD CONSTRAINT "fk_rating_hotel" FOREIGN KEY ("hotel_id") REFERENCES "hotel"("id");
+CREATE TABLE IF NOT EXISTS rating (
+	id serial NOT NULL PRIMARY KEY,
+	hotel_id bigint NOT NULL,
+	guest_name varchar(255) NOT NULL,
+	guest_email varchar(255) NOT NULL,
+	guest_phone varchar(15) NOT NULL,
+	stars int NOT NULL,
+	description varchar(250) NOT NULL,
+	added_date timestamp NOT NULL,
+	last_modified_date timestamp NOT NULL
+);
+
+ALTER TABLE city ADD CONSTRAINT fk_city_state FOREIGN KEY ("state_id") REFERENCES state("id");
+ALTER TABLE locality ADD CONSTRAINT fk_locality_city FOREIGN KEY ("city_id") REFERENCES city("id");
+ALTER TABLE hotel ADD CONSTRAINT fk_hotel_locality FOREIGN KEY ("locality_id") REFERENCES locality("id");
+ALTER TABLE rating ADD CONSTRAINT fk_rating_hotel FOREIGN KEY ("hotel_id") REFERENCES hotel("id");
 
 
 INSERT INTO state VALUES
