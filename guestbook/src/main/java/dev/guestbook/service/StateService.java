@@ -19,7 +19,7 @@ public class StateService {
         return this.stateRepository.findAll();
     }
 
-    public State findById(Long id) {
+    public State getById(Long id) {
         return stateRepository.getReferenceById(id);
     }
 

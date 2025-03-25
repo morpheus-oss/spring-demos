@@ -41,5 +41,4 @@ spec:
         path: /var/lib/guestbook-dbdata
     - name: resources
       hostPath:
-        # Path to your SQL file (guestbook-ddl.sql renamed as init.sql)
         path: ../resources/

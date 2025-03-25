@@ -25,7 +25,8 @@ ALTER TABLE "rating" ADD CONSTRAINT "fk_rating_hotel" FOREIGN KEY ("hotel_id") R
 @Data
 @Builder
 @AllArgsConstructor
-@Entity(name = "rating")
+@Entity
+@Table(name = "rating")
 public class Rating {
 
     @Id

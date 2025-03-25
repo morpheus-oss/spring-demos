@@ -1,9 +1,12 @@
 package dev.guestbook.service;
 
 import dev.guestbook.entities.Hotel;
+import dev.guestbook.exception.ResourceNotFoundException;
 import dev.guestbook.repo.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class HotelService {
@@ -16,7 +19,11 @@ public class HotelService {
     }
 
     public Hotel saveHotel(Hotel hotel) {
-        return hotelRepository.saveAndFlush(hotel);
+        return hotelRepository.save(hotel);
     }
 
+    public Hotel getHotel(Long id) throws ResourceNotFoundException {
+        Optional<Hotel> hotel = hotelRepository.findById(id);
+        return hotel.orElseThrow();
+    }
 }

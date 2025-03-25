@@ -29,7 +29,7 @@ public class RatingService {
     public List<Rating> findAll() {
         return ratingRepository.findAll();
     }
-
+/*
     public List<Rating> findByStars(int stars)  {
         return ratingRepository.findByStars(stars);
     }
@@ -45,4 +45,5 @@ public class RatingService {
     public List<Rating> sortByDate()    {
         return ratingRepository.sortByDate(); 
     }
+    */
 }

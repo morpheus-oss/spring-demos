@@ -8,7 +8,8 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-@Entity(name = "locality")
+@Entity
+@Table(name = "locality")
 public class Locality {
 
     @Id

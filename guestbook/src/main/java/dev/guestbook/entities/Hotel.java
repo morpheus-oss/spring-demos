@@ -24,7 +24,8 @@ ALTER TABLE "hotel" ADD CONSTRAINT "fk_hotel_locality" FOREIGN KEY ("locality_id
 @Data
 @Builder
 @AllArgsConstructor
-@Entity(name = "hotel")
+@Entity
+@Table(name = "hotel")
 public class Hotel {
 
     @Id
@@ -52,7 +53,5 @@ public class Hotel {
         this.street = hotel.street();
         this.locality = new Locality(hotel.locality());
     }
-
-
 
 }

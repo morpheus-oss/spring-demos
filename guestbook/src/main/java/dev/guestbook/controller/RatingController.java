@@ -2,17 +2,19 @@ package dev.guestbook.controller;
 
 import dev.guestbook.domain.Rating;
 import dev.guestbook.repo.RatingRepository;
+import dev.guestbook.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/v1")
 public class RatingController {
 
-    @Autowired
-    RatingRepository ratingRepo;
+    private final RatingService ratingService;
+
+    public RatingController(RatingService service)  {
+        this.ratingService = service;
+    }
 
     @PostMapping("/hotel/{hotelId}/rating")
     public Rating addRating(@PathVariable long hotelId, @RequestBody Rating rating)     {

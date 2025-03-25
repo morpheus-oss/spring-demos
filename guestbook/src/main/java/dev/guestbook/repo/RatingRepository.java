@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public interface RatingRepository extends JpaRepository<Rating, Long> {
-
+/*
     @Query("SELECT r FROM rating r WHERE stars = :stars")
     List<Rating> findByStars(int stars);
 
@@ -20,7 +20,5 @@ public interface RatingRepository extends JpaRepository<Rating, Long> {
 
     @Query("SELECT r from rating r ORDER BY last_modified_date")
     List<Rating> sortByDate();
-
-
-
+    */
 }

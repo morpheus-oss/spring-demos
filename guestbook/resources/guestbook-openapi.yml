@@ -597,13 +597,34 @@ paths:
         - guestbook_auth:
             - write:cities
             - read:cities
-  /states:
+  /state:
     get:
       tags:
         - state
       summary: List all states and union-territories of India
       description: List all states and union-territories of India
       operationId: listStates
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/State'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/State'
+      security:
+        - guestbook_auth:
+            - write:cities
+            - read:cities
+  /state/{stateid}:
+    get:
+      tags: 
+        - state
+      summary: Get a particular state information
+      description: Get a particular state information
+      operationId: getState
       responses:
         '200':
           description: successful operation
@@ -686,16 +707,16 @@ components:
           example: Marriot
         street:
           type: string
-          example: '19th Cross'
+          example: 19th Cross
         locality:
           type: string
-          example: 'HSR Layout'
+          example: HSR Layout
         city:
           type: string
-          example: 'Bangalore'
+          example: Bangalore
         state:
           type: string
-          example: 'Karnataka'
+          example: Karnataka
         pincode:
           type: string
           example: '560102'

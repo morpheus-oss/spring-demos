@@ -80,3 +80,5 @@ INSERT INTO state VALUES
     (34, 'Ladakh'),
     (35, 'Lakshadweep'),
     (36, 'Puducherry');
+
+COMMIT;
