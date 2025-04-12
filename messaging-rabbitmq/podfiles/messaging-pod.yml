@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: messaging-pod
+spec:
+  restartPolicy: Always
+  containers:
+    - name: rabbitmq
+      image: rabbitmq:4.0-management
+      imagePullPolicy: IfNotPresent
+      env:
+        - name: RABBITMQ_DEFAULT_USER
+          value: "messenger"
+        - name: RABBITMQ_DEFAULT_PASS
+          value: "messenger"
+      ports:
+        - containerPort: 5672
+          hostPort: 5672
+        - containerPort: 15672
+          hostPort: 15672
+
+#    - name: app
+#      image: Containerfile
+#      imagePullPolicy: Never
+#      ports:
+#        - containerPort: 9090
+#          hostPort: 9090
