@@ -3,10 +3,12 @@ package dev.guestbook.repo;
 import dev.guestbook.entities.Rating;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
 import java.util.List;
 
+@Repository
 public interface RatingRepository extends JpaRepository<Rating, Long> {
 /*
     @Query("SELECT r FROM rating r WHERE stars = :stars")

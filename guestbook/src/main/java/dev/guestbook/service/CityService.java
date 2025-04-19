@@ -1,5 +1,6 @@
 package dev.guestbook.service;
 
+import dev.guestbook.domain.CityOut;
 import dev.guestbook.entities.City;
 import dev.guestbook.exception.ResourceNotFoundException;
 import dev.guestbook.repo.CityRepository;
@@ -19,13 +20,21 @@ public class CityService {
         this.cityRepository = cityRepo;
     }
 
-    public City addCity(City city)  {
-        return cityRepository.saveAndFlush(city);
+    public CityOut addCity(City city)  {
+        City out = cityRepository.saveAndFlush(city);
+        return new CityOut(out.getId(), out.getName(), out.getState().getId());
     }
 
-    public Optional<City> getCity(Long id) {
+    public Optional<City> getCityEntity(Long id) {
         return cityRepository.findById(id);
     }
+
+    public Optional<CityOut> getCity(Long id) {
+        Optional<City> city = cityRepository.findById(id);
+
+        return city.map(c -> new CityOut(c.getId(), c.getName(), c.getState().getId()));
+    }
+
 
     public City updateCity(City city)   {
         return cityRepository.save(city);
@@ -34,4 +43,18 @@ public class CityService {
     public Page<City> listCities(Pageable pageable)  {
         return cityRepository.findAll(pageable);
     }
+
+    public List<City> listAllCities()   {
+        return cityRepository.findAll();
+    }
+/*
+    public List<City> listCitiesByState(Long stateId)   {
+        return cityRepository.findByState(stateId);
+    }
+
+    public Page<City> pageCitiesByState(Long stateId, Pageable pageable)   {
+        return cityRepository.pageCitiesByState(stateId, pageable);
+    }
+*/
+
 }

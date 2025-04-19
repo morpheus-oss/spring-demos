@@ -1,9 +1,11 @@
 package dev.guestbook.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
@@ -21,9 +23,11 @@ CREATE TABLE IF NOT EXISTS "hotel" (
 
 ALTER TABLE "hotel" ADD CONSTRAINT "fk_hotel_locality" FOREIGN KEY ("locality_id") REFERENCES "locality"("id");
  */
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "hotel")
 public class Hotel {
@@ -47,11 +51,13 @@ public class Hotel {
 
     @Column(name = "last_modified_date")
     private Timestamp lastModifiedDate;
+/*
 
     public Hotel(dev.guestbook.domain.Hotel hotel)  {
         this.name = hotel.name();
         this.street = hotel.street();
         this.locality = new Locality(hotel.locality());
     }
+*/
 
 }

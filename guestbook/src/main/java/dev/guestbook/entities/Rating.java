@@ -1,5 +1,6 @@
 package dev.guestbook.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,9 +23,11 @@ CREATE TABLE IF NOT EXISTS "rating" (
 ALTER TABLE "rating" ADD CONSTRAINT "fk_rating_hotel" FOREIGN KEY ("hotel_id") REFERENCES "hotel"("id");
  */
 
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "rating")
 public class Rating {

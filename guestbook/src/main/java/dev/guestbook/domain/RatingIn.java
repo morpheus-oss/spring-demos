@@ -25,7 +25,7 @@ guestPhone:
   type: string
   example: '12345'
 stars:
-  type: integer
+  type: integerRating
   example: 5
 comment:
   type: string
@@ -37,6 +37,6 @@ commentedDate:
  */
 
 @Builder
-public record Rating(long id, long hotelId, String guestName, String guestEmail, String guestPhone,
-                     int stars, String comment, LocalDateTime commentedDate) {
+public record RatingIn(long hotelId, String guestName, String guestEmail, String guestPhone,
+                       int stars, String comment, LocalDateTime commentedDate) {
 }

@@ -1,28 +1,43 @@
 package dev.guestbook.controller;
 
-import dev.guestbook.domain.Hotel;
-import dev.guestbook.domain.Rating;
-import dev.guestbook.repo.HotelRepository;
+import dev.guestbook.domain.HotelIn;
+import dev.guestbook.entities.Hotel;
 import dev.guestbook.service.HotelService;
+import dev.guestbook.util.ControllerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/v1")
+//@RequestMapping("/api/v1")
 public class HotelController {
 
     private final HotelService hotelService;
-    private final HotelRepository hotelRepository;
-    public HotelController(HotelService hotelService, HotelRepository hotelRepository)   {
+
+    @Autowired
+    public HotelController(HotelService hotelService)   {
         this.hotelService = hotelService;
-        this.hotelRepository = hotelRepository;
     }
 
     @PostMapping("/hotel")
-    public Rating addRating(@RequestBody Hotel hotel)     {
-//        dev.guestbook.entities.Hotel entityHotel = dev.guestbook.entities.Hotel.
-//        hotelService
+    public Hotel addRating(@RequestBody HotelIn hotel)     {
         return null;
+    }
+
+    @GetMapping("/hotel")
+    public List<Hotel> listAllHotels()  {
+        return hotelService.findAll();
+    }
+
+    @GetMapping("/hotel?page={pageNum}&pageSize={pageSize}")
+    public Page<Hotel> listHotels(@RequestParam(name = "pageNum", required = false) int pageNum,
+                                        @RequestParam(name = "pageSize", required = false) int pageSize)   {
+
+        return hotelService.findAllHotels(ControllerUtil.createPageable(pageNum, pageSize));
     }
 
 
