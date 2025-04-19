@@ -1,24 +1,24 @@
 CREATE TABLE IF NOT EXISTS state  (
     id serial NOT NULL PRIMARY KEY,
-    name  varchar(80) NOT NULL
+    name  varchar(80) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS city (
 	id serial NOT NULL PRIMARY KEY,
-	name varchar(80) NOT NULL,
+	name varchar(80) NOT NULL UNIQUE,
 	state_id bigint NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS locality (
 	id serial NOT NULL PRIMARY KEY,
-	name varchar(255) NOT NULL,
+	name varchar(255) NOT NULL UNIQUE,
 	city_id bigint NOT NULL,
 	pincode VARCHAR(10) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS hotel (
 	id serial NOT NULL PRIMARY KEY,
-	name varchar(200) NOT NULL,
+	name varchar(200) NOT NULL UNIQUE,
 	street varchar(250) NOT NULL,
 	locality_id bigint NOT NULL,
 	added_date timestamp NOT NULL,
