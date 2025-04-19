@@ -30,6 +30,7 @@ public class RabbitProducer {
     public void sendMessage(String message)   {
         LOGGER.info(String.format("Sending message: %s", message));
         rabbitTemplate.convertAndSend(exchangeName, routingKey, message);
+//        rabbitTemplate.send(exchangeName, routingKey, message);
     }
 
     public void sendObject(User user)   {

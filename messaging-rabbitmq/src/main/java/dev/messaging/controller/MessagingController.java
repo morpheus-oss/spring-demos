@@ -13,12 +13,15 @@ import org.springframework.web.bind.annotation.*;
 public class MessagingController {
 
     private RabbitProducer producer;
-    private RabbitConsumer consumer;
+    private RabbitConsumer consumer1, consumer2;
 
     @Autowired
-    public MessagingController(RabbitProducer producer, RabbitConsumer consumer) {
+    public MessagingController(RabbitProducer producer,
+                               RabbitConsumer consumer1,
+                               RabbitConsumer consumer2) {
         this.producer = producer;
-        this.consumer = consumer;
+        this.consumer1 = consumer1;
+        this.consumer2 = consumer2;
     }
 
     @PostMapping("/publish")
@@ -35,13 +38,13 @@ public class MessagingController {
 
     @GetMapping("/receive")
     public ResponseEntity<String> receiveMessage()  {
-        String message = consumer.receiveMessage();
+        String message = consumer1.receiveMessage();
         return ResponseEntity.ok(message);
     }
 
     @GetMapping("/receiveJson")
     public ResponseEntity<User> receiveJson()  {
-        User user = consumer.receiveObject();
+        User user = consumer1.receiveObject();
         return ResponseEntity.ok(user);
     }
 

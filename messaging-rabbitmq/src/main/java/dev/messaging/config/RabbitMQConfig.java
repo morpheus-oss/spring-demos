@@ -15,6 +15,9 @@ public class RabbitMQConfig {
     @Value("${rabbitmq.exchange.name}")
     private String exchangeName;
 
+    @Value("${rabbitmq.exchange.fanout}")
+    private String fanoutExchange;
+
     @Value("${rabbitmq.queue.name}")
     private String qName;
 
@@ -32,6 +35,11 @@ public class RabbitMQConfig {
     @Bean
     public TopicExchange getExchange()  {
         return new TopicExchange(exchangeName);
+    }
+
+    @Bean
+    public FanoutExchange newExchange() {
+        return new FanoutExchange(fanoutExchange);
     }
 
     @Bean
